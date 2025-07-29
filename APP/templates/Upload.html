@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href='{{url_for("static",filename="Bootstrap/bootstrap.min.css")}}'>
+    <script src="{{ url_for('static', filename='JS/jquery.min.js') }}"></script>
+    <title>Upload</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-3 col-md-6" style="margin-top: 35px;">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <h3 class="text-center text-primary page-header">Upload Your Files</h3>
+                    <div class="form-group">
+                        <label>Profile Photo</label>
+                        <input type="file" class="form-control" name="photo">
+                        <small class="form-text text-muted">Only JPG / JPEG files are allowed</small>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Resume</label>
+                        <input type="file" class="form-control" name="resume">
+                        <small class="form-text text-muted">Only PDF files are allowed</small>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>ID proof</label>
+                        <input type="file" class="form-control" name='files[]' multiple>
+                        <small class="form-text text-muted">Upload Two ID Proofs (Only JPG / JPEG files)</small>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Upload">
+                    </div>
+                    {%with messages=get_flashed_messages("with_categories=True")%}
+                    {%if messages%}
+                    {%for category, message in messages%}
+                    <div class="alert alert-{{category}}">{{message}}</div>
+                    {%endfor%}
+                    {%endif%}
+                    {%endwith%}
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $(".alert").hide(3000);
+    })
+</script>
+
+</html>

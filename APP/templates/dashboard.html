@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href='{{url_for("static",filename="Bootstrap/bootstrap.min.css")}}'>
+    <script src="{{ url_for('static', filename='JS/jquery.min.js') }}"></script>
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="col text-end">
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </div>
+        <h3 class="page-header text-primary text-center">YOUR UPLOADS</h3>
+        <div class="row">
+            {% for file in data %}
+            <div class="col-md-4 mb-4" style="margin-top: 35px;">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        {% if file.endswith('.pdf') %}
+                        <iframe src="{{ url_for('static', filename=file) }}" width="100%" height="400px"></iframe>
+                        {% else %}
+                        <img src="{{ url_for('static', filename=file) }}" class="img-fluid" style="max-height: 400px;"
+                            alt="Uploaded File">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {%with messages=get_flashed_messages("with_categories=True")%}
+            {%if messages%}
+            {%for category, message in messages%}
+            <div class="alert alert-{{category}}">{{message}}</div>
+            {%endfor%}
+            {%endif%}
+            {%endwith%}
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $(".alert").hide(3000);
+    })
+</script>
+
+</html>

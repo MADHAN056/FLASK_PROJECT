@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href='{{url_for("static",filename="Bootstrap/bootstrap.min.css")}}'>
+    <script src="{{ url_for('static', filename='JS/jquery.min.js') }}"></script>
+    <title>LOGIN</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-3 col-md-6" style="margin-top: 40px;">
+                <h2 class="text-primary page-header text-center">LOGIN</h2>
+                <form method="POST" action="/">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="uname">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="upass">
+                    </div> 
+                    <br>
+                    <div class="form-group text-center">
+                            <input type="submit" class="btn btn-success" value="LOGIN" style="display:inline-block; margin-right: 10px;">
+                             <a href="/register" class="btn btn-success" style="display:inline-block;">Create New Account</a>
+                    </div>
+                    {%with messages=get_flashed_messages("with_categories=True")%}
+                    {%if messages%}
+                    {%for category, message in messages%}
+                    <div class="alert alert-{{category}}">{{message}}</div>
+                    {%endfor%}
+                    {%endif%}
+                    {%endwith%}
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $(".alert").hide(3000);
+    })
+</script>
+</html>
